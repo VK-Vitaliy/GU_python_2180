@@ -8,7 +8,7 @@ for i in user_list:
     summ = 0
     while n != 0:
         digit = n % 10
-        summ = summ + digit
+        summ += digit
         n = n // 10
     if summ % 7 == 0:
         new_list.append(i)
@@ -25,7 +25,7 @@ for i in user_list:
     summ = 0
     while n != 0:
         digit = n % 10
-        summ = summ + digit
+        summ += digit
         n = n // 10
     if summ % 7 == 0:
         new_list.append(i)
@@ -41,7 +41,7 @@ for i in user_list[:]:
     summ = 0
     while n != 0:
         digit = n % 10
-        summ = summ + digit
+        summ += digit
         n = n // 10
     if summ % 7 != 0:
         user_list.remove(i)
