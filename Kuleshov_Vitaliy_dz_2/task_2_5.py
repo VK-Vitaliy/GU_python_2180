@@ -36,7 +36,7 @@ print(id(price_rev))  # видим, что ссылка идет на новый
 
 # D.	Вывести цены пяти самых дорогих товаров.
 price = [57.8, 46.51, 97, 154.2, 336, 38.08, 12, 224.5, 150.1, 89.09, 111.11, 313, 218.18]
-price.sort()
+price.sort(reverse=True)
 price_float = list(map(float, price))
 price_str = [str(i) for i in price_float]
 for i in price_str[:6]:
