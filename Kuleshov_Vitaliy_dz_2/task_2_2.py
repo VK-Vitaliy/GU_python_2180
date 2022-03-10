@@ -1,26 +1,27 @@
 dz_list = ['в', '5', 'часов', '17', 'минут', 'температура', 'воздуха', 'была', '+5', 'градусов']
+new_list = []
 for i in dz_list[:]:
     if i.isdigit():
-        n = int(i)
-        n = f'{n:02d}'
-        idx = dz_list.index(i)
-        dz_list.remove(i)
-        dz_list.insert(idx, '"')
-        dz_list.insert(idx, n)
-        dz_list.insert(idx, '"')
-    elif i[0] == '+' or i[0] == '-' and i[1].isdigit():
-        n = int(i)
-        n = f'{n:02d}'
-        idx = dz_list.index(i)
-        dz_list.remove(i)
-        dz_list.insert(idx, '"')
-        dz_list.insert(idx, n)
-        dz_list.insert(idx, i[0])
-        dz_list.insert(idx, '"')
+        new_list.extend(['"', i.zfill(2), '"'])
+    elif i[1:].isdigit() and i[0] == '+' or i[0] == '-':
+        new_list.extend(['"', i.zfill(3), '"'])
+    else:
+        new_list.append(i)
+print(new_list)
 
-print(dz_list)
-result = ' '.join(dz_list) # не получается убрать пробелы между ковычками и числами
-print(type(result))
+list_answer = []
+skip_quotes = False
 
-print(result)
+for i in range(len(new_list)):
+    list_answer.append(new_list[i])
+    if new_list[i] == '"' and not skip_quotes:
+        skip_quotes = True
+    elif new_list[i] == '"' and skip_quotes:
+        skip_quotes = False
+        list_answer.append(' ')
+    elif new_list[i] != '"' and not skip_quotes and i + 1 != len(new_list):
+        list_answer.append(' ')
 
+print(list_answer)
+
+print(''.join(list_answer))
