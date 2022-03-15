@@ -15,11 +15,10 @@ def num_translate(value):
         'ten': 'десять',
         'zero': 'ноль'
     }
-    if value.istitle():
-        value = value.lower()
-        return dict_num.get(value).title()
+    if value.istitle() and dict_num.get(value.lower()):
+        return dict_num.get(value.lower()).title()
     else:
         return dict_num.get(value)
 
 
-print(f'"{num_translate("Three")}"')
+print(f'"{num_translate("Eleven")}"')
