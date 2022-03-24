@@ -8,18 +8,15 @@ def currency_rates(currency):
     """
     response = requests.get("http://www.cbr.ru/scripts/XML_daily.asp")
     content = response.text
-    values = []
-    char_code = []
-    for el in content.split('<Value>')[1:]:
-        values.append(round(float(el.split('</Value>')[0].replace(',', '.')), 2))
-
-    for el in content.split('<CharCode>')[1:]:
-        char_code.append(el.split('</CharCode>')[0])
-
-    currency_dict = dict(zip(char_code, values))
-
-    return currency_dict.get(currency.upper())
+    result = None
+    if currency.upper() not in content:
+        return result
+    for el in content.split(f'{currency.upper()}')[1:]:
+        for el_1 in el.split('</Value>')[:1]:
+            result = round(float(el_1.split('<Value>')[1].replace(',', '.')), 2)
+            return result
 
 
 print(currency_rates("USD"))
-print(currency_rates('EUR'))
+print(currency_rates('eur'))
+print(currency_rates('GBP'))

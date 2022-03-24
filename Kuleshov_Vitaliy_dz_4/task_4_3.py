@@ -9,24 +9,17 @@ def currency_rates(currency):
     """
     response = requests.get("http://www.cbr.ru/scripts/XML_daily.asp")
     content = response.text
-    values = []
-    char_code = []
-    for el in content.split('<Value>')[1:]:
-        values.append(round(float(el.split('</Value>')[0].replace(',', '.')), 2))
-
-    for el in content.split('<CharCode>')[1:]:
-        char_code.append(el.split('</CharCode>')[0])
-
-    currency_dict = dict(zip(char_code, values))
+    result = None
     date = datetime.now().strftime('%Y-%m-%d')
-
-    if currency_dict.get(currency.upper()):
-        return f'{currency_dict.get(currency.upper())}, {date}'
+    if currency.upper() not in content:
+        return result
     else:
-        return None
+        for el in content.split(f'{currency.upper()}')[1:]:
+            for el_1 in el.split('</Value>')[:1]:
+                result = round(float(el_1.split('<Value>')[1].replace(',', '.')), 2)
+                return f'{result}, {date}'
 
 
 if __name__ == '__main__':
     print(currency_rates('USD'))
-    print(currency_rates('EUR'))
-    print(currency_rates('123'))
+    print(currency_rates('eur'))
