@@ -1,10 +1,6 @@
 import os
 import json
 
-# заготовка для проекта хранится в файле config.json в виде словаря.
-with open('config.json', 'r', encoding='utf-8') as f:
-    config = json.load(f)
-
 
 def create_library(library_template, prefix=''):
     for root_dir, second_dir in library_template.items():
@@ -20,5 +16,9 @@ def create_library(library_template, prefix=''):
                     with open(os.path.join(folder, f'{el}'), 'w') as _temp:
                         pass
 
+
+# заготовка для проекта хранится в файле config.json в виде словаря.
+with open('config.json', 'r', encoding='utf-8') as f:
+    config = json.load(f)
 
 create_library(config)
