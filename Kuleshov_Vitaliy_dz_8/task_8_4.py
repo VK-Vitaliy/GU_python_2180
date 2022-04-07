@@ -1,8 +1,8 @@
 def val_checker(callback_func):
-    def _checker(func_calc_cube):
+    def _checker(func):
         def wrapped(*args, **kwargs):
             if callback_func(*args, **kwargs):
-                return func_calc_cube(*args, **kwargs)
+                return func(*args, **kwargs)
             else:
                 raise ValueError(f'wrong val {args, kwargs}')
 
